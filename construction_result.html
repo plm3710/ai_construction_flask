@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        img{height: 300px; width: 400px;}
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인공지능 결과</title>
+</head>
+<body>
+    <div><h3>건설현장 유해위험 사진</h3></div>
+    <img id="image" src="">
+    <p id="rule">규칙</p>
+    <p id="risk">유해위험</p>
+    <p id="counterplan">재해예방 대책</p>
+    <p id="de_counterplan">- 재해예방 세부대책 for문 이용</p>
+    
+    <script>
+        let queryString = decodeURI(location.search);
+        
+        function getParamMap(queryString){
+            let splited_temp = queryString.split("=")[1].split(',');
+            
+            let splited = []//띄어쓰기가 생겨서 띄어쓰기 제거
+            for(var i=0; i<splited_temp.length ; i++){
+                splited.push(splited_temp[i].trim());
+            }
+            //alert(splited)
+            let param = {};
+            var str = "";
+            
+            param[splited[0].trim()] = splited[1].trim();
+            param[splited[2].trim()] = splited[3].trim();
+            param[splited[4].trim()] = splited[5].trim();
+                                  
+            for(var i=7 ; i<splited.length-2 ; i++){
+                str += " - "+splited[i].trim()+"<br>";
+            }
+            param[splited[6]] = str;
+            param[splited[splited.length-2]] = [splited[splited.length-1]];
+            
+            return param
+        }
+
+        const paramObj = getParamMap(queryString);
+        
+        document.getElementById("image").setAttribute('src',paramObj.img_fname);
+        document.getElementById("rule").innerHTML = "규칙 : "+paramObj.규칙;
+        document.getElementById("risk").innerHTML = "유해위험 : "+paramObj.유해위험;
+        document.getElementById("counterplan").innerHTML = "["+paramObj.재해예방대책+"]";
+        document.getElementById("de_counterplan").innerHTML = paramObj.재해예방세부대책;
+                   
+        
+        
+
+
+    </script>
+    
+</body>
+</html>
