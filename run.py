@@ -72,12 +72,12 @@ def construction():
     #json 형식이나 쿼리스트링으로 전송시 문자열로 전송하기 위해 내용 처리
     result = str(result).replace("'","").replace('"','').replace("{","").replace("}","").replace("[","").replace("]","").replace(":",",")
     
-    return redirect("http://192.168.0.111:5500/construction_result.html?result="+str(result))
-    #return result
+    #return redirect("http://192.168.0.111:5500/construction_result.html?result="+str(result))
+    return result
 
 if __name__ == '__main__':
     from werkzeug.serving import run_simple
-    run_simple('0.0.0.0', 9000, app)
+    run_simple('0.0.0.0', 9001, app)
 
 
 # In[ ]:
